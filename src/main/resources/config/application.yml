@@ -1,0 +1,24 @@
+#server:
+#  port: 8080
+#  tomcat:
+#      max-threads: 200
+
+spring:
+  datasource:
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://35.200.243.133:3306/suggestDB?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: zhemrnfn1!
+    tomcat:
+      test-while-idle: true
+      validation-query: SELECT 1
+      min-evictable-idle-time-millis: 3600000
+      time-between-eviction-runs-millis: 60000
+
+jpa:
+    generate-ddl: false
+
+logging:
+  level:
+    root: DEBUG
+
