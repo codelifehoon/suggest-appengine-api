@@ -1,6 +1,5 @@
 package somun.appengine.index;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,11 +11,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.google.appengine.api.datastore.AdminDatastoreService;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.GeoPoint;
@@ -30,17 +27,13 @@ import com.google.appengine.api.search.Results;
 import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SearchException;
 import com.google.appengine.api.search.SearchServiceFactory;
-import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 import com.google.appengine.api.search.StatusCode;
-import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.sun.tools.javac.util.Pair;
 
 import lombok.extern.slf4j.Slf4j;
 import somun.appengine.AppengineUtils;
-import somun.common.util.RandomUti;
-import somun.service.repository.SearchDocument;
+import somun.appengine.service.repository.SearchIndexComb;
 
 @Slf4j
 @SpringBootTest
@@ -55,13 +48,16 @@ public class CreateContentIndexTest {
         helper.setUp();
 
         //  순번 , 위치(long,lati)
-        List<SearchDocument> docList = new ArrayList<>();
+        List<SearchIndexComb> docList = new ArrayList<>();
+
 
         Stream.iterate(0,d->{
             docList.addAll(Arrays.asList(
-                SearchDocument.builder().eventContentNo(1+d).eventDescText("Cum cedrium peregrinatione, omnes medicinaes desiderium rusticus, flavum parses.").tags("Aa BB CC").longitude(127.03068730).latitude(37.50258907).build()
-                ,SearchDocument.builder().eventContentNo(2+d).eventDescText("Salvus, talis gabaliums absolute transferre de gratis, grandis urbs.").tags("Dd EE FF").longitude(126.95271200).latitude(37.48121000).build()
-                ,SearchDocument.builder().eventContentNo(3+d).eventDescText("Cum tabes ire, omnes gabaliumes resuscitabo velox, ferox orgiaes.").tags("Gg HH II").longitude(127.07473757).latitude(37.55555391).build()
+                SearchIndexComb.builder().eventContentNo( 1+d).eventDescText("Cum cedrium peregrinatione, omnes medicinaes desiderium rusticus, flavum parses.").tags("Aa BB CC").longitude(127.03068730).latitude(37.50258907).build()
+                ,
+                SearchIndexComb.builder().eventContentNo( 2+d).eventDescText("Salvus, talis gabaliums absolute transferre de gratis, grandis urbs.").tags("Dd EE FF").longitude(126.95271200).latitude(37.48121000).build()
+                ,
+                SearchIndexComb.builder().eventContentNo( 3+d).eventDescText("Cum tabes ire, omnes gabaliumes resuscitabo velox, ferox orgiaes.").tags("Gg HH II").longitude(127.07473757).latitude(37.55555391).build()
             ));
             return d+3;
         }).limit(60).count();

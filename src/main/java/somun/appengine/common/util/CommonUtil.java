@@ -1,4 +1,4 @@
-package somun.common.util;
+package somun.appengine.common.util;
 
 public class CommonUtil {
 

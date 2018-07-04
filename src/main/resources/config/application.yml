@@ -1,24 +1,62 @@
-#server:
-#  port: 8080
-#  tomcat:
-#      max-threads: 200
+### real
+#spring:
+#  datasource:
+#    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    url: jdbc:log4jdbc:mysql://35.200.243.133:3306/suggestDB?useUnicode=true&characterEncoding=utf8
+#    username: root
+#    password: zhemrnfn1!
+#    tomcat:
+#      test-while-idle: true
+#      validation-query: SELECT 1
+#      min-evictable-idle-time-millis: 3600000
+#      time-between-eviction-runs-millis: 60000
+#
+#jpa:
+#    generate-ddl: false
+#
+#logging:
+#  level:
+#    root: debug
+#
+#somun:
+#  properties:
+#    apiServer: https://api.gokgok.net
 
+
+
+##dev
 spring:
   datasource:
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mysql://35.200.243.133:3306/suggestDB?useUnicode=true&characterEncoding=utf8
+    url: jdbc:log4jdbc:mysql://192.168.99.100:3306/suggestDB?useUnicode=true&characterEncoding=utf8
     username: root
-    password: zhemrnfn1!
+    password: ail733
     tomcat:
       test-while-idle: true
       validation-query: SELECT 1
       min-evictable-idle-time-millis: 3600000
       time-between-eviction-runs-millis: 60000
+    hikari:
+      maximum-pool-size: 1
 
-jpa:
-    generate-ddl: false
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
 
 logging:
   level:
-    root: DEBUG
+    root: debug
+
+
+security:
+  ignored: true
+  basic:
+    enabled: false
+
+
+somun:
+  properties:
+    apiServer: http://localhost:8080
 

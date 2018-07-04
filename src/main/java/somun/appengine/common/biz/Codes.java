@@ -1,4 +1,4 @@
-package somun.common.biz;
+package somun.appengine.common.biz;
 
 public class Codes {
 

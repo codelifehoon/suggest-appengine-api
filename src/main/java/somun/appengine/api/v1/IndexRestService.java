@@ -3,6 +3,7 @@ package somun.appengine.api.v1;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,23 +25,38 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import somun.appengine.AppengineUtils;
-import somun.common.util.RandomUti;
+import somun.appengine.common.util.RandomUti;
+import somun.appengine.config.properties.SomunProperties;
+import somun.appengine.service.ContentSearchService;
 
 @Slf4j
 @Controller
 @CrossOrigin(origins = "*")
-@RequestMapping(path="Engine/V1/")
-@Api(value = "Engine/V1/", description = "Search Indexing Service", tags = {"SearchIndex"})
+@RequestMapping(path="Engine/V1/INDEX")
+@Api(value = "Engine/V1/INDEX", description = "Document Index Service", tags = {"Document Index"})
 @ApiResponses(value = {
     @ApiResponse(code = 400, message = "Wrong Type Parameter"),
     @ApiResponse(code = 404, message = "Does not exists User"),
     @ApiResponse(code = 500, message = "Server Error")})
 public class IndexRestService {
 
-    @Transactional
-    @PostMapping("createContentIndex")
+    @Autowired
+    SomunProperties somunProperties;
+    @Autowired
+    ContentSearchService contentSearchService;
+
+    @PostMapping("mergeTotalSearchIndex")
     @ResponseBody
     @ApiOperation(value="", notes = "index 생성")
+    public int mergeTotalSearchIndex() throws InterruptedException {
+
+        return contentSearchService.mergeTotalSearchIndex(somunProperties.getApiServer() + "/Content/V1/indexDocList/2018-01-01/2019-01-01?page=0&size=100");
+
+    }
+
+//    @PostMapping("createContentIndex")
+//    @ResponseBody
+//    @ApiOperation(value="", notes = "index 생성")
     public String createContentIndex(){
 
         String indexName = "contentIndex_1";

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9090
   tomcat:
       max-threads: 200
 
@@ -14,6 +14,8 @@ spring:
       validation-query: SELECT 1
       min-evictable-idle-time-millis: 3600000
       time-between-eviction-runs-millis: 60000
+    hikari:
+      maximum-pool-size: 1
 
 
   jpa:
@@ -32,5 +34,7 @@ security:
     enabled: false
 
 
-
+somun:
+  properties:
+    apiServer: http://localhost:8080
 
