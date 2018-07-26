@@ -76,6 +76,11 @@ public class ContentSearchServiceTest {
     }
 
     @Test
+    public  void mergeTotalSearchIndex() throws InterruptedException {
+        int searchIndex = contentSearchService.mergeTotalSearchIndex(somunProperties.getApiServer() +
+                                                               "/Content/V1/indexDocList/2018-01-01/2019-01-01?page=0&size=1000000");
+    }
+    @Test
     public void search_input_Date_location() throws InterruptedException {
         Page<SearchIndexComb> searchIndexCombs =
             contentSearchService.searchTotalSearchIndex(SearchIndexComb.builder()

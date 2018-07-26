@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,12 +46,16 @@ public class IndexRestService {
     @Autowired
     ContentSearchService contentSearchService;
 
-    @PostMapping("mergeTotalSearchIndex")
+    @PostMapping("mergeTotalSearchIndex/{indexStartDate}/{indexEndDate}")
     @ResponseBody
     @ApiOperation(value="", notes = "index 생성")
-    public int mergeTotalSearchIndex() throws InterruptedException {
+    public int mergeTotalSearchIndex(@PathVariable("indexStartDate") String indexStartDate
+        ,@PathVariable("indexEndDate") String indexEndDate) throws InterruptedException {
 
-        return contentSearchService.mergeTotalSearchIndex(somunProperties.getApiServer() + "/Content/V1/indexDocList/2018-01-01/2019-01-01?page=0&size=100");
+        String page  = "0";
+        String size  = "1000000";
+        return contentSearchService.mergeTotalSearchIndex(somunProperties.getApiServer()
+                                                              + String.format("/Content/V1/indexDocList/%s/%s?page=%s&size=%s",indexStartDate,indexEndDate,page,size));
 
     }
 

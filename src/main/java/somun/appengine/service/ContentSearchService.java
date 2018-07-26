@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Spliterator;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SearchException;
 import com.google.appengine.api.search.SortOptions;
 import com.google.appengine.api.search.StatusCode;
+import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
 import somun.appengine.AppengineUtils;
@@ -83,7 +85,18 @@ public class ContentSearchService {
 
             return document;
         }).collect(Collectors.toList());
-        AppengineUtils.indexADocuments(this.searchIndexName, documents);
+
+        List<List<Document>> partition = Lists.partition(documents, 200);
+
+        long partitionCount = partition.stream().map(d -> {
+            try {
+                AppengineUtils.indexADocuments(this.searchIndexName, d);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return 1;
+        }).count();
+        ;
 
         return documents.size();
     }

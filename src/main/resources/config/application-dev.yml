@@ -36,5 +36,5 @@ security:
 
 somun:
   properties:
-    apiServer: http://localhost:8080
+    apiServer: https://api.gokgok.net
 

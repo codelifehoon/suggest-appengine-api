@@ -1,6 +1,9 @@
-.gradle
+/.gradle/
+/gradle/
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+
+/WEB-INF/appengine-generated/
 
 ### STS ###
 .apt_generated
@@ -25,3 +28,6 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### certification ###
+application.yml
