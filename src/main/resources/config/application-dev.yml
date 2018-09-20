@@ -8,7 +8,7 @@ spring:
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:mysql://192.168.99.100:3306/suggestDB?useUnicode=true&characterEncoding=utf8
     username: root
-    password: ail733
+    password: 0000
     tomcat:
       test-while-idle: true
       validation-query: SELECT 1
@@ -36,5 +36,7 @@ security:
 
 somun:
   properties:
-    apiServer: https://api.gokgok.net
+    apiServer: http://localhost:8080
+    searchIndexName: totalSearchIndex_v1.3
+#    apiServer: https://api.gokgok.net
 
